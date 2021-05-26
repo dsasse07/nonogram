@@ -7,18 +7,23 @@ import random
 
 class GameBoard():
   def __init__(self, size, probability):
+    '''
+      Initializes game board of specific size. Uses probability to determine selected tiles.
+    '''
     self.size = size
     self.probability = probability
-    self.cols = {}
-    self.rows = {}
-    self.setBoard()
-    self.setAnswers()
+    self.cols = {} # Stores array for each col for hint generation
+    self.rows = {} # Stores array for each row for hint generation
+    self.setBoard() # Creates a size[0] x size[1] board of Piece instances
     self.row_hints = self.get_row_hints()
     self.col_hints = self.get_col_hints()
-    print('colhints', self.col_hints)
-    print('rowhints', self.row_hints)
-  
+
   def setBoard(self):
+    '''
+      creates size[0] x size[1] board of game Pieces.
+      Additionally creates arrays for row/value cols with string elements
+      These string arrays will be used to generate hints
+    '''
     self.board = []
     for i in range(self.size[0]):
       row = []
@@ -30,24 +35,28 @@ class GameBoard():
         row.append(piece)
       self.board.append(row)
   
-  def setAnswers(self):
-    self.answers = []
-    for row in self.rows:
-      self.answers.append(self.rows[row])
-  
   def get_size(self):
     return self.size
   
   def get_piece(self, row, col):
+    '''
+      Returns Piece instance at speficied index of the board
+    '''
     return self.board[row][col]
 
   def add_to_row(self, row, is_selected):
+    '''
+      Creates string value from Piece boolean state
+    '''
     value = ' '
     if is_selected: value = '*'
     if row in self.rows: self.rows[row].append(value)
     else: self.rows[row] = [value]
 
   def add_to_col(self, col, is_selected):
+    '''
+      Creates string value from Piece boolean state
+    '''
     value = ' '
     if is_selected: value = '*'
     if col in self.cols: self.cols[col].append(value)
@@ -98,4 +107,7 @@ class GameBoard():
     return list_counts
   
   def handle_click(self, piece):
+    '''
+      Takes in a piece and toggles its clicked state
+    '''
     piece.clicked = not piece.clicked
