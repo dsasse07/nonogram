@@ -13,7 +13,6 @@ def relative_path(r_path):
 '''
     This file initializes the game instance and running logic.
 '''
-from game_board import GameBoard
 
 class Game():
   def __init__(self, board, screen_size):
@@ -130,7 +129,7 @@ class Game():
     self.images = {}
     for file_name in os.listdir(relative_path('tiles')):
       if not file_name.endswith('.png'): continue # If the file isn't a png, don't load it
-      image = pygame.image.load(r'tiles/' + file_name) # Load image file
+      image = pygame.image.load(relative_path('tiles/' + file_name)) # Load image file
       if not file_name == 'winner.png':
         scale_size = self.piece_size if not file_name == 'check.png' else (self.piece_size[0]*2, self.piece_size[1])
         image = pygame.transform.scale(image, scale_size) #Scale image based on game window and needed rows/cols

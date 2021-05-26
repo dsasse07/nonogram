@@ -2,7 +2,7 @@
   Creates the game board layer with the number of squares
 
 '''
-from piece import Piece
+from lib.piece import Piece
 import random
 
 class GameBoard():

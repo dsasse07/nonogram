@@ -1,5 +1,8 @@
-from game import Game
-from game_board import GameBoard
+# from lib.game_board import GameBoard
+from lib.game import Game
+from lib.game_board import GameBoard
+# from game import Game
+# from game_board import GameBoard
 
 SIZE = (6,6)
 PROBABILITY = 0.7
