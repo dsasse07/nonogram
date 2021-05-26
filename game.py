@@ -161,10 +161,10 @@ class Game():
       Creates bounding rectangle for the board
       If mouse position is within bounding rect, calculates and returns Piece index
     '''
-    min_board_x = self.screen_size[0] - self.board_dimensions[0]
-    max_board_x = self.screen_size[0] - self.piece_size[0]
-    min_board_y = self.screen_size[1] - self.board_dimensions[1]
-    max_board_y = self.screen_size[1] - self.piece_size[1]
+    min_board_x = self.rects['board'][0]
+    max_board_x = min_board_x + (self.board.get_size()[0] * self.piece_size[0])
+    min_board_y = self.rects['board'][1]
+    max_board_y = min_board_x + (self.board.get_size()[1] * self.piece_size[1])
     if min_board_x <= position[0] <= max_board_x and min_board_y <= position[1] <= max_board_y:
       row = (position[1] - min_board_y) // self.piece_size[1]
       col = (position[0] - min_board_x) // self.piece_size[0]
