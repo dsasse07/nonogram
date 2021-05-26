@@ -1,6 +1,7 @@
 import pygame
 import os
 import math
+from time import sleep
 
 '''
   Used to allow relative path importing
@@ -33,15 +34,21 @@ class Game():
     self.draw_row_hints()
     self.draw_col_hints()
     self.draw_check_button()
+    won = False
     while running:
       for event in pygame.event.get():
         if event.type == pygame.QUIT: running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
           position = pygame.mouse.get_pos()
-          self.handle_click(position)
+          won = self.handle_click(position, won)
+      if won:
+        self.draw_win_banner()
+        sound = pygame.mixer.Sound(relative_path('sounds/win.wav'))
+        sound.play()
+        running = False
       self.draw_board()
-
       pygame.display.flip()
+    if won: sleep(2)
     pygame.quit()
 
   def draw_board(self):
@@ -82,6 +89,11 @@ class Game():
     image = self.images['check']
     top_left = ( self.screen_size[0] // 2 + self.piece_size[0], self.screen_size[1] - self.piece_size[1])
     self.screen.blit(image, top_left)
+  
+  def draw_win_banner(self):
+    image = self.images['winner']
+    top_left = (self.piece_size[0], 2 * self.piece_size[1])
+    self.screen.blit(image, top_left)
 
   def load_images(self):
     # Map the file name to the image object created by pygame
@@ -89,8 +101,9 @@ class Game():
     for file_name in os.listdir(relative_path('tiles')):
       if not file_name.endswith('.png'): continue # If the file isn't a png, don't load it
       image = pygame.image.load(r'tiles/' + file_name) # Load image file
-      scale_size = self.piece_size if not file_name == 'check.png' else (self.piece_size[0]*2, self.piece_size[1])
-      image = pygame.transform.scale(image, scale_size) #Scale image based on game window and needed rows/cols
+      if not file_name == 'winner.png':
+        scale_size = self.piece_size if not file_name == 'check.png' else (self.piece_size[0]*2, self.piece_size[1])
+        image = pygame.transform.scale(image, scale_size) #Scale image based on game window and needed rows/cols
       # create new entry in dict with filename as key
       self.images[file_name.split('.')[0]] = image
 
@@ -100,7 +113,16 @@ class Game():
     else:
       return self.images['unselected']
   
-  def handle_click(self, position):
+  def handle_click(self, position, won):
+    if won: return
+    board_coords = self.get_board_coords(position)
+    if board_coords:
+      piece = self.board.get_piece(board_coords[0], board_coords[1])
+      self.board.handle_click(piece)
+    elif self.clicked_check(position):
+      return self.check_answers()
+
+  def get_board_coords(self, position):
     min_board_x = self.screen_size[0] - self.board_dimensions[0]
     max_board_x = self.screen_size[0] - self.piece_size[0]
     min_board_y = self.screen_size[1] - self.board_dimensions[1]
@@ -108,25 +130,29 @@ class Game():
     if min_board_x <= position[0] <= max_board_x and min_board_y <= position[1] <= max_board_y:
       row = (position[1] - min_board_y) // self.piece_size[1]
       col = (position[0] - min_board_x) // self.piece_size[0]
-      piece = self.board.get_piece(row,col)
-      self.board.handle_click(piece)
+      return row, col
+    return None
+  
+  def clicked_check(self, position):
     min_check_x = self.screen_size[0] // 2 + self.piece_size[0]
     max_check_x = min_check_x + (2* self.piece_size[0])
     min_check_y = self.screen_size[1] - self.piece_size[1]
     max_check_y = self.screen_size[1]
-    if min_check_x <= position[0] <= max_check_x and min_check_y <= position[1] <= max_check_y:
-      self.check_answers()
-  
+    return min_check_x <= position[0] <= max_check_x and min_check_y <= position[1] <= max_check_y
+
   def check_answers(self):
     for row in range(self.board.size[0]):
       for col in range(self.board.size[1]):
         if self.board.answers[row][col] == '*' and not self.board.get_piece(row, col).clicked:
-          print('wrong')
+          print(relative_path('error.wav'))
+          sound = pygame.mixer.Sound(relative_path('sounds/error.wav'))
+          sound.play()
           return False
         if self.board.answers[row][col] == ' ' and self.board.get_piece(row, col).clicked:
-          print('wrong')
+          print(relative_path('error.wav'))
+          sound = pygame.mixer.Sound(relative_path('sounds/error.wav'))
+          sound.play()
           return False
-    print('correct')
     return True
   
   # def _marked_and_incorrect(self, i, j):
