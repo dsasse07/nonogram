@@ -1,4 +1,4 @@
-# Nonogram
+# Pycross
 #### Created by Daniel Sasse
 This project was built as my Code in Place 2021 final project using Python and the Pygame module.
 
@@ -8,15 +8,15 @@ This project was built as my Code in Place 2021 final project using Python and t
 * The game will continue until either the window is closed, or the win conditions are met.
 
 ### Game Rules
-* The Nonogram game is a puzzle game in which the players uses the hints to the left and top of the board to determine which tiles in the board should be selected.
+* The Pycross game is a puzzle game in which the players uses the hints to the left and top of the board to determine which tiles in the board should be selected.
 * Each row/column hint consists of a sequence of numbers representing the pattern of consequetive tiles that should be selected
 * Example:
   * In the example below, the first rows's clue is a '5'. This indicates that there should be 5 consecutive tiles selected in that column.
   * In the first column, the hints "2,2" are given. This indicates that there should be a sequence of 2 tiles in a row touch each other, and then AT LEAST one unselected tile before the next sequence of "2" selected tiles.
-  ![Nonogram Example](nonogram.png)
+  ![Pycross Example](nonogram.png)
   * Use the clues to select all of the tiles which should be selected. When you believe you have it correct, press the green "Check" button to confirm.
 * Example "Completed" Game:
-  ![Nonogram Finished Example](nonogram-won.png)
+  ![Pycross Finished Example](nonogram-won.png)
 
 ### Difficulty
 The difficulty of the game can be increased by increasing the number of tiles in the board, or by reducing the probably that a tile should be selected.
