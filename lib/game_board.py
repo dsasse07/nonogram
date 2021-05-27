@@ -1,7 +1,3 @@
-'''
-  Creates the game board layer with the number of squares
-
-'''
 from lib.piece import Piece
 import random
 
