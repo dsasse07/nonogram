@@ -1,4 +1,12 @@
 # Pycross
+
+![Pycross Logo](https://i.imgur.com/k58W2eP.png)
+
+[Demo Video](https://youtu.be/np0uua3mhU0)
+
+---  
+### Welcome to Pycross
+
 #### Created by Daniel Sasse
 This project was built as my Code in Place 2021 final project using Python and the Pygame module.
 
