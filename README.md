@@ -21,10 +21,10 @@ This project was built as my Code in Place 2021 final project using Python and t
 * Example:
   * In the example below, the first rows's clue is a '5'. This indicates that there should be 5 consecutive tiles selected in that column.
   * In the first column, the hints "2,2" are given. This indicates that there should be a sequence of 2 tiles in a row touch each other, and then AT LEAST one unselected tile before the next sequence of "2" selected tiles.
-  ![Pycross Example](nonogram.png)
+  ![Pycross Example](https://raw.githubusercontent.com/dsasse07/pycross/main/nonogram.png)
   * Use the clues to select all of the tiles which should be selected. When you believe you have it correct, press the green "Check" button to confirm.
 * Example "Completed" Game:
-  ![Pycross Finished Example](nonogram-won.png)
+  ![Pycross Finished Example](https://raw.githubusercontent.com/dsasse07/pycross/main/nonogram-won.png)
 
 ### Difficulty
 The difficulty of the game can be increased by increasing the number of tiles in the board, or by reducing the probably that a tile should be selected.
