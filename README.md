@@ -23,10 +23,12 @@ This project was built as my Code in Place 2021 final project using Python and t
   * In the first column, the hints "2,2" are given. This indicates that there should be a sequence of 2 tiles in a row touch each other, and then AT LEAST one unselected tile before the next sequence of "2" selected tiles.
   * Use the clues to select all of the tiles which should be selected. When you believe you have it correct, press the green "Check" button to confirm.
 
-__Example "Starting" Board:__
+### Example "Starting" Board:
+
 ![Pycross Example](https://raw.githubusercontent.com/dsasse07/pycross/main/nonogram.png)
 
-__Example "Completed" Game:__
+### Example "Completed" Game:
+
 ![Pycross Finished Example](https://raw.githubusercontent.com/dsasse07/pycross/main/nonogram-won.png)
 
 ### Difficulty
